@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".HomeActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?attr/actionBarSize"
+            app:title="Categories"
+            app:menu="@menu/home_menu" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/general_news"
+        style="@style/BtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Genral News"
+        android:layout_marginTop="16dp"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/tec_news"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tecnology News"
+        style="@style/BtnStyle"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/spot_news"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sport News"
+        style="@style/BtnStyle"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/scinece_news"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Scinece News"
+        style="@style/BtnStyle"/>
+
+</LinearLayout>
