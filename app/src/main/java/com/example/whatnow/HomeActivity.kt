@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.whatnow.databinding.ActivityHomeBinding
+import com.google.android.gms.ads.MobileAds
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
@@ -14,6 +15,8 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        MobileAds.initialize(this) {}
 
         binding.tecNews.setOnClickListener { openNewsPage("technology") }
 

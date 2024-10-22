@@ -8,6 +8,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import com.example.whatnow.databinding.ActivityMainBinding
+import com.google.android.gms.ads.AdRequest
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,6 +30,9 @@ class MainActivity : AppCompatActivity() {
         binding.swipeRefresh.setOnRefreshListener {
             getNews()
         }
+
+        val adRequest = AdRequest.Builder().build()
+        binding.adView.loadAd(adRequest)
 
 
     }
