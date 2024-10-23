@@ -7,9 +7,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.whatnow.databinding.ActivityHomeBinding
+import com.google.android.gms.ads.AdError
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 
 class HomeActivity : AppCompatActivity() {
+
+    private var mInterstitialAd: InterstitialAd? = null
+    private var category = ""
+
     private lateinit var binding: ActivityHomeBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityHomeBinding.inflate(layoutInflater)
@@ -18,13 +28,27 @@ class HomeActivity : AppCompatActivity() {
 
         MobileAds.initialize(this) {}
 
-        binding.tecNews.setOnClickListener { openNewsPage("technology") }
+        loadAd()
 
-        binding.generalNews.setOnClickListener { openNewsPage("general") }
+        binding.tecNews.setOnClickListener {
+            showAd()
+            category = "technology"
+             }
 
-        binding.scineceNews.setOnClickListener { openNewsPage("science") }
+        binding.generalNews.setOnClickListener {
+            showAd()
+            category = "general"
+             }
 
-        binding.spotNews.setOnClickListener { openNewsPage("sport") }
+        binding.scineceNews.setOnClickListener {
+            showAd()
+            category = "science"
+             }
+
+        binding.spotNews.setOnClickListener {
+            showAd()
+            category = "sport"
+             }
 
         binding.topAppBar.setOnMenuItemClickListener {
             return@setOnMenuItemClickListener when(it.itemId){
@@ -40,9 +64,41 @@ class HomeActivity : AppCompatActivity() {
 
     }
 
-    private fun openNewsPage(categroy: String) {
+    private fun openNewsPage() {
         val i = Intent(this, MainActivity::class.java)
-        i.putExtra("category", categroy)
+        i.putExtra("category",category)
         startActivity(i)
+    }
+    private fun loadAd(){
+        val adRequest = AdRequest.Builder().build()
+
+        InterstitialAd.load(this,"ca-app-pub-3940256099942544/1033173712", adRequest, object : InterstitialAdLoadCallback() {
+            override fun onAdFailedToLoad(adError: LoadAdError) {
+                mInterstitialAd = null
+            }
+
+            override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                mInterstitialAd = interstitialAd
+            }
+        })
+    }
+    private fun showAd(){
+        if (mInterstitialAd != null){
+            mInterstitialAd?.show(this)
+
+            mInterstitialAd?.fullScreenContentCallback = object: FullScreenContentCallback() {
+                override fun onAdDismissedFullScreenContent() {
+                    mInterstitialAd = null
+                    openNewsPage()
+                }
+
+                override fun onAdFailedToShowFullScreenContent(adError: AdError) {
+                    mInterstitialAd = null
+                    openNewsPage()
+                }
+            }
+        }
+        else
+            openNewsPage()
     }
 }
