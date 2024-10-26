@@ -14,6 +14,8 @@ import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class HomeActivity : AppCompatActivity() {
 
@@ -54,6 +56,12 @@ class HomeActivity : AppCompatActivity() {
             return@setOnMenuItemClickListener when(it.itemId){
                 R.id.countries_item -> {
                     startActivity(Intent(this, CountryActivity::class.java))
+                    true
+                }
+                R.id.logout_item -> {
+                    Firebase.auth.signOut()
+                    startActivity(Intent(this, SignUpActivity::class.java))
+                    finishAffinity()
                     true
                 }
                 else -> false

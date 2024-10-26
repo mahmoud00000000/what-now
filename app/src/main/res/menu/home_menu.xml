@@ -5,4 +5,8 @@
         android:id="@+id/countries_item"
         android:title="Available Countries" />
 
+    <item
+        android:id="@+id/logout_item"
+        android:title="Logout"/>
+
 </menu>
